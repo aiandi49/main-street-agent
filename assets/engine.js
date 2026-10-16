@@ -377,9 +377,13 @@
 
   function autoGrow() {
     input.style.height = 'auto';
-    input.style.height = input.scrollHeight + 'px'; // CSS max-height caps it, then it scrolls
+    var full = input.scrollHeight;
+    input.style.height = full + 'px'; // CSS max-height caps it
+    // Only show a scrollbar once the typed text is taller than the cap (an empty box never scrolls).
+    input.style.overflowY = input.value && full > input.clientHeight + 1 ? 'auto' : 'hidden';
   }
   input.addEventListener('input', autoGrow);
+  autoGrow();
 
   resetBtn.addEventListener('click', function () {
     state = { messages: [], matches: [], selected: null };
