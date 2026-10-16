@@ -64,7 +64,8 @@
     var visible = [];
     var matches = [];
     lines.forEach(function (line) {
-      var t = line.trim();
+      // Accept small formatting slips around a MATCH line (a list dash, bullet, bold or code ticks).
+      var t = line.trim().replace(/^(?:[-*\u2022]\s*)?[`*]*\s*(?=MATCH:)/i, '').replace(/[`*]+\s*$/, '');
       if (/^MATCH:/i.test(t)) {
         try {
           var obj = JSON.parse(t.replace(/^MATCH:\s*/i, ''));
