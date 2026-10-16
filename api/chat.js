@@ -59,7 +59,11 @@ function pickEntries(messages, entries, max = 8) {
     return { e, score };
   });
   scored.sort((a, b) => b.score - a.score);
-  const picked = scored.filter((s) => s.score > 0).slice(0, max).map((s) => s.e);
+  const kept = scored.filter((s) => s.score > 0).slice(0, max);
+  const picked = kept.map((s) => s.e);
+  // Remember scores so the MATCH safety net only uses clearly relevant topics.
+  const top = kept.length ? kept[0].score : 0;
+  picked.strong = kept.filter((s) => s.score >= Math.max(6, top * 0.5)).map((s) => s.e);
   if (picked.length < 3) {
     for (const id of ['start-why-when-where-how', 'open-checking', 'find-financial-advisor']) {
       if (picked.length >= 3) break;
@@ -182,7 +186,7 @@ HOW YOU TALK
 - Help people market honestly. Do not write fake reviews or testimonials, invented income claims, false deadlines or deceptive ads, and do not help send automated calls or texts without consent; offer an honest version instead.
 
 MATCHES
-When you recommend options, end your reply with 1 to 4 lines, one per option, each exactly in this format and nothing else on the line:
+Every reply that is not only a clarifying question MUST end with 1 to 4 MATCH lines. That includes explanations and warnings: when you explain the dollar, inflation, the debt or options, or warn about a risk, match the guide topics that go deeper (for example dollar-tracker, dollar-gold-yardstick, dollar-national-debt, dollar-gdp-measured, dollar-options-puts-risk). Put them at the very end, each on its own line, as plain text with no bullet, number, quote marks or code formatting, exactly in this format and nothing else on the line:
 MATCH: {"id":"...","title":"...","score":0-100,"why":"one sentence","details":{"Label":"Value"}}
 - For guide entries, id must be one of the guide ids in the catalog below.
 - For a bank branch from the FDIC data, use id "fdic-" followed by its cert number, title "Bank name — branch", and put the address in details.
@@ -201,6 +205,28 @@ ${guide}
 </guide>${fdic}${liveBlock}
 
 Guide last updated: ${gub.meta.updated}.`;
+}
+
+// Safety net for the side cards: if Claude answered (not just a clarifying question) but left out
+// the MATCH lines, add lines for the guide topics this request was matched to, in ranked order.
+const MATCH_LINE = /^\s*(?:[-*\u2022]\s*)?[`*]*\s*MATCH:/im;
+function withMatches(reply, picked) {
+  if (MATCH_LINE.test(reply)) return reply;
+  const lastLine = reply.trim().split(/\r?\n/).filter((l) => l.trim()).pop() || '';
+  if (/\?\s*$/.test(lastLine)) return reply; // a clarifying question: no matches yet
+  const strong = picked.strong && picked.strong.length ? picked.strong : picked.slice(0, 1);
+  const lines = strong.slice(0, 3).map((e, i) => {
+    const details = {};
+    for (const [k, v] of Object.entries(e.details || {}).slice(0, 4)) details[k] = String(v);
+    return 'MATCH: ' + JSON.stringify({
+      id: e.id,
+      title: e.title,
+      score: [80, 70, 60][i],
+      why: String(e.summary || '').slice(0, 200),
+      details,
+    });
+  });
+  return lines.length ? `${reply}\n${lines.join('\n')}` : reply;
 }
 
 export default async function handler(req, res) {
@@ -316,7 +342,7 @@ export default async function handler(req, res) {
       sendJson(res, 502, { error: 'The assistant is unavailable right now. Please try again in a minute.' });
       return;
     }
-    sendJson(res, 200, { reply });
+    sendJson(res, 200, { reply: withMatches(reply, picked) });
   } catch (err) {
     console.error(`chat: upstream ${err && err.name === 'AbortError' ? 'timeout' : 'network error'}`);
     sendJson(res, 502, { error: 'The assistant is unavailable right now. Please try again in a minute.' });
