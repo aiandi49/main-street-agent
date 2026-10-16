@@ -51,6 +51,7 @@ One guide and one chat engine covering everyday money and small business, built 
 
 - **`/`** is the engine. Describe what you need in your own words. It asks one question at a time, then shows a top match, a shortlist and a clear next step. Type a ZIP code and it lists FDIC-insured bank branches near you from the FDIC's public data.
 - **`/guide`** is the guide (GUB): 112 topics in ten sections. Every topic links to its sources.
+- **Download chat as PDF:** the download button at the top of the chat saves the whole conversation, plus the matched topics, as a PDF. It is built in the visitor's browser by `assets/chat-pdf.js`, so nothing is uploaded.
 - **`/dollar`** is the Dollar tracker: where the dollar stands right now. It shows the dollar measured in gold (the headline metric), inflation and purchasing power, the money supply, Fed and Treasury rates, real yields, the national debt and its daily growth, interest payments, the average rate on the debt, debt compared with GDP, the dollar index, real GDP alongside GDI, and, with an EIA key, electricity generation. Every card shows its date and links to its official source. The page also offers The Dollar Brief as a PDF download (`assets/the-dollar-brief.pdf`).
 
 | Section | Examples |
