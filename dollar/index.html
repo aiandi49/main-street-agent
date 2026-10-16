@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-font-size="sm" data-default-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dollar Tracker — where the dollar stands today · Main Street Agent</title>
+<meta name="description" content="Live gold price, inflation, Treasury yields, the national debt, interest costs, the dollar index and GDP, straight from the U.S. Treasury and the Federal Reserve Bank of St. Louis.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('pref-theme'),f=localStorage.getItem('pref-font-size');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);if(f==='sm'||f==='md'||f==='lg'||f==='xl')d.setAttribute('data-font-size',f);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/guide.css">
+<link rel="stylesheet" href="/assets/dollar.css">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-row">
+    <a class="brand" href="/" aria-label="Main Street Agent home">
+      <span class="brand-mark" aria-hidden="true">MS</span>
+      <span class="brand-name"><strong>Main Street Agent</strong><small>Money &amp; business guide</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Engine</a>
+      <a href="/guide">Guide</a>
+      <a href="/dollar" aria-current="page">Dollar</a>
+    </nav>
+    <div class="prefs">
+      <div class="sizes" role="group" aria-label="Text size">
+        <button type="button" class="size" data-size="sm" aria-pressed="true" aria-label="Text size small, selected">A</button>
+        <button type="button" class="size" data-size="md" aria-pressed="false" aria-label="Text size medium">A</button>
+        <button type="button" class="size" data-size="lg" aria-pressed="false" aria-label="Text size large">A</button>
+        <button type="button" class="size" data-size="xl" aria-pressed="false" aria-label="Text size extra large">A</button>
+      </div>
+      <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Switch to dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+  <section class="masthead d-mast">
+    <p class="kicker"><span class="live-dot" aria-hidden="true"></span> Live · Dollar tracker</p>
+    <h1>Where the dollar stands today</h1>
+    <p class="lede">No single number tells you what a dollar is really worth. Here are the main yardsticks side by side (gold, everyday prices, what savers earn, what the country owes and how the economy is doing), each pulled from an official or public source with its date.</p>
+    <div class="d-actions">
+      <button type="button" class="cta d-refresh" id="btn-refresh">Refresh numbers</button>
+      <a class="d-link" href="/guide?e=dollar-tracker">How to read this</a>
+      <a class="d-link" href="/assets/the-dollar-brief.pdf" download>Download The Dollar Brief (PDF)</a>
+    </div>
+    <p class="d-status" id="status" role="status">Loading the latest numbers…</p>
+  </section>
+
+  <section class="d-hero" id="hero" aria-labelledby="hero-title" hidden>
+    <div class="d-hero-main">
+      <p class="d-eyebrow">Metric one · the dollar measured in gold</p>
+      <h2 id="hero-title" class="d-hero-value"><span id="hero-grams">—</span></h2>
+      <p class="d-hero-sub" id="hero-sub"></p>
+      <p class="d-hero-meta" id="hero-meta"></p>
+    </div>
+    <div class="d-hero-refs" id="hero-refs" aria-label="The dollar in gold compared with past years"></div>
+  </section>
+
+  <div id="groups"></div>
+
+  <section class="d-notes">
+    <div class="panel">
+      <h2>What this page is (and isn't)</h2>
+      <p>These are public numbers with their sources, refreshed every 15 minutes at most. Monthly and quarterly figures only change when the agency publishes. Nothing here predicts where the dollar is going or tells you what to buy or sell. For that kind of decision, talk to a fee-only fiduciary.</p>
+      <p><a href="/">Ask the engine</a> what any number means in plain words.</p>
+    </div>
+    <div class="panel warn-panel">
+      <h2>Watch out for fear pitches</h2>
+      <p>Worry about the dollar is used to sell gold coins, gold IRAs, options courses and newsletters. A real problem doesn't make the product a good deal. <a href="/guide?e=dollar-fear-pitches">See the warning signs</a>.</p>
+    </div>
+  </section>
+
+  <noscript><p class="noscript">This tracker needs JavaScript to load live data. The official sources are <a href="https://fiscaldata.treasury.gov/">fiscaldata.treasury.gov</a> and <a href="https://fred.stlouisfed.org/">fred.stlouisfed.org</a>.</p></noscript>
+</main>
+
+<footer class="foot">
+  <p>Main Street Agent explains public data and common processes. It is not financial, legal or tax advice. Figures come from the U.S. Treasury, FRED (Federal Reserve Bank of St. Louis), a spot gold feed and, where shown, the U.S. Energy Information Administration. Check the linked source before relying on any number.</p>
+  <p class="contact">Built by Lamar Myers · <a href="mailto:ai.agent.lamar@gmail.com">ai.agent.lamar@gmail.com</a> · <a href="https://www.linkedin.com/in/lamar-myers-ai" rel="noopener noreferrer" target="_blank">linkedin.com/in/lamar-myers-ai</a></p>
+</footer>
+
+<script src="/assets/prefs.js"></script>
+<script src="/assets/dollar.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "main-street-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Main Street Agent: a plain-language guide (GUB) to banking, starting and growing a business, marketing and money lessons, plus a chat engine that matches people to options and real help.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}

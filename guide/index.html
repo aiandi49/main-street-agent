@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-font-size="sm" data-default-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Main Street Guide — banking, business, marketing and money</title>
+<meta name="description" content="Plain-language guides to bank accounts, starting an LLC, nonprofits, pricing, marketing rules, money lessons, free help and avoiding scams.">
+<meta name="color-scheme" content="light dark">
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('pref-theme'),f=localStorage.getItem('pref-font-size');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);if(f==='sm'||f==='md'||f==='lg'||f==='xl')d.setAttribute('data-font-size',f);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/guide.css">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-row">
+    <a class="brand" href="/" aria-label="Main Street Agent home">
+      <span class="brand-mark" aria-hidden="true">MS</span>
+      <span class="brand-name"><strong>Main Street Agent</strong><small>Money &amp; business guide</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/">Engine</a>
+      <a href="/guide" aria-current="page">Guide</a>
+      <a href="/dollar">Dollar</a>
+    </nav>
+    <div class="prefs">
+      <div class="sizes" role="group" aria-label="Text size">
+        <button type="button" class="size" data-size="sm" aria-pressed="true" aria-label="Text size small, selected">A</button>
+        <button type="button" class="size" data-size="md" aria-pressed="false" aria-label="Text size medium">A</button>
+        <button type="button" class="size" data-size="lg" aria-pressed="false" aria-label="Text size large">A</button>
+        <button type="button" class="size" data-size="xl" aria-pressed="false" aria-label="Text size extra large">A</button>
+      </div>
+      <button type="button" class="theme-toggle" aria-pressed="false" aria-label="Switch to dark theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="content">
+  <section class="masthead" id="masthead">
+    <p class="kicker">The Main Street Guide</p>
+    <h1>Money and business, explained in plain words</h1>
+    <p class="lede">How people usually open accounts, start and grow a business, market it honestly, learn from famous money stories and find trustworthy help, plus who to call to finish each step. A directory and process guide, not financial, legal or tax advice.</p>
+    <form class="search" id="search-form" role="search" novalidate>
+      <label class="sr-only" for="search">Search the guide</label>
+      <input id="search" type="search" placeholder="Search: LLC, pricing, check hold, advisor…" autocomplete="off" maxlength="120">
+      <button type="button" class="mic" id="btn-mic" aria-label="Search by voice" aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+      </button>
+    </form>
+    <p class="voice-msg" id="voice-msg" role="status" hidden></p>
+    <p class="voice-note">Voice search uses your browser's speech service, so speech may be processed by your browser maker (Google for Chrome, Apple for Safari).</p>
+    <div class="filters" id="filters" role="group" aria-label="Filter by topic"></div>
+  </section>
+
+  <section class="list-view" id="list-view" aria-live="polite">
+    <p class="result-count" id="result-count"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <article class="entry-view" id="entry-view" hidden></article>
+
+  <noscript><p class="noscript">This guide needs JavaScript to load its topics. You can read the raw guide data at <a href="/data/gub.json">/data/gub.json</a>.</p></noscript>
+</main>
+
+<footer class="foot">
+  <p id="foot-disclaimer">Main Street Agent explains common processes and points you to the right institution or professional. It is not financial, legal or tax advice. Fees, rates and rules change, so confirm every number with the institution before you act.</p>
+  <p class="contact">Built by Lamar Myers · <a href="mailto:ai.agent.lamar@gmail.com">ai.agent.lamar@gmail.com</a> · <a href="https://www.linkedin.com/in/lamar-myers-ai" rel="noopener noreferrer" target="_blank">linkedin.com/in/lamar-myers-ai</a></p>
+  <p class="foot-meta" id="foot-meta"></p>
+</footer>
+
+<script src="/assets/prefs.js"></script>
+<script src="/assets/guide.js"></script>
+</body>
+</html>

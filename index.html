@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-font-size="sm" data-default-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Main Street Agent — banking, business and marketing help</title>
+<meta name="description" content="Tell Main Street Agent what you need — a bank account, starting an LLC, pricing, marketing, a scam check or free help — and get matched options with a clear next step.">
+<meta name="color-scheme" content="dark light">
+<script>(function(){var d=document.documentElement;try{var t=localStorage.getItem('pref-theme'),f=localStorage.getItem('pref-font-size');if(t==='light'||t==='dark')d.setAttribute('data-theme',t);if(f==='sm'||f==='md'||f==='lg'||f==='xl')d.setAttribute('data-font-size',f);}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/engine.css">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#chat-input">Skip to the chat</a>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-row">
+    <a class="brand" href="/" aria-label="Main Street Agent home">
+      <span class="brand-mark" aria-hidden="true">MS</span>
+      <span class="brand-name"><strong>Main Street Agent</strong><small>Money &amp; business guide</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="/" aria-current="page">Engine</a>
+      <a href="/guide">Guide</a>
+      <a href="/dollar">Dollar</a>
+    </nav>
+    <div class="prefs">
+      <div class="sizes" role="group" aria-label="Text size">
+        <button type="button" class="size" data-size="sm" aria-pressed="true" aria-label="Text size small, selected">A</button>
+        <button type="button" class="size" data-size="md" aria-pressed="false" aria-label="Text size medium">A</button>
+        <button type="button" class="size" data-size="lg" aria-pressed="false" aria-label="Text size large">A</button>
+        <button type="button" class="size" data-size="xl" aria-pressed="false" aria-label="Text size extra large">A</button>
+      </div>
+      <button type="button" class="theme-toggle" aria-pressed="true" aria-label="Switch to light theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <p class="chip">Banking, business &amp; marketing guide · not financial advice</p>
+    <h1>Money &amp; business help, <span class="grad">with real options</span></h1>
+    <p class="sub">Ask about a bank account near your ZIP, starting an LLC, pricing, getting customers or a deal that feels off.<br class="br-wide"> It asks one question at a time and ends with matched options and a clear next step.</p>
+    <div class="hero-links">
+      <a class="chip-link" href="/guide">Read the full guide</a>
+      <a class="chip-link" href="/dollar">Where the dollar stands</a>
+    </div>
+  </section>
+
+  <section class="board" aria-label="Main Street Agent">
+    <div class="cell cell-chat" id="chat-cell">
+      <article class="card chat" id="chat-card" aria-labelledby="chat-title">
+        <div class="chat-head">
+          <div class="chat-titles">
+            <h2 id="chat-title">Ask the agent</h2>
+            <p class="card-sub">Plain answers, real options.</p>
+          </div>
+          <div class="chat-tools">
+            <button type="button" class="icon-btn" id="btn-reset" aria-label="Start over" title="Start over">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4.5h4.5"/></svg>
+            </button>
+            <button type="button" class="pill-btn" id="btn-full" aria-pressed="false" aria-label="Full page">
+              <svg class="i-expand" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+              <svg class="i-collapse" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>
+              <span class="pill-label">Full page</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="log" id="log" role="log" aria-live="polite" aria-relevant="additions">
+          <div class="empty" id="empty">
+            <p class="empty-title">Ask in your own words.</p>
+            <p>Try “How do I start an LLC in Tucson?”</p>
+          </div>
+        </div>
+
+        <form class="composer" id="composer" novalidate>
+          <label class="sr-only" for="chat-input">Your message</label>
+          <textarea id="chat-input" rows="1" maxlength="2000" placeholder="Tell me what you need…" autocomplete="off"></textarea>
+          <div class="composer-actions">
+            <button type="button" class="mic" id="btn-mic" aria-label="Speak your message" aria-pressed="false" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>
+            </button>
+            <button type="submit" class="send" id="btn-send">Send</button>
+          </div>
+        </form>
+        <p class="voice-msg" id="voice-msg" role="status" hidden></p>
+        <div class="chat-foot">
+          <span class="count-chip" id="msg-count">No messages yet</span>
+          <p class="note">Chat clears when you close this tab. Voice may be processed by your browser maker (Google for Chrome, Apple for Safari).</p>
+        </div>
+      </article>
+    </div>
+
+    <article class="card side top" aria-labelledby="top-title">
+      <span class="pill" id="top-title">Top match</span>
+      <div class="tile" id="top-tile">
+        <span class="tile-kind" id="top-kind">Ready</span>
+        <span class="tile-title" id="top-name">Waiting for your first question</span>
+      </div>
+      <p class="fit"><span class="fit-label">Fit score</span> <strong id="top-score">—</strong></p>
+      <p class="why" id="top-why">Your best option will show here, with one line on why it fits.</p>
+    </article>
+
+    <article class="card side shortlist" aria-labelledby="short-title">
+      <div class="short-head">
+        <div>
+          <h2 id="short-title">Shortlist</h2>
+          <p class="card-sub" id="short-note">Ranked by fit score.</p>
+        </div>
+        <div class="gauge" aria-hidden="true">
+          <svg viewBox="0 0 44 44"><circle class="g-track" cx="22" cy="22" r="18"/><circle class="g-val" id="gauge-val" cx="22" cy="22" r="18" pathLength="100" stroke-dasharray="0 100"/></svg>
+          <span id="gauge-num">—</span>
+        </div>
+      </div>
+      <p class="sr-only" id="gauge-sr">No matches yet.</p>
+      <ol class="matches" id="matches"><li class="placeholder">Matches will appear here.</li></ol>
+    </article>
+
+    <article class="card side details" aria-labelledby="det-title">
+      <h2 id="det-title">Listing details</h2>
+      <p class="det-name" id="det-name">Pick a match to see its details.</p>
+      <dl class="det-list" id="det-list"></dl>
+      <a class="det-link" id="det-link" href="/guide" hidden>Read this in the guide →</a>
+      <div class="next">
+        <h3>Next step</h3>
+        <p id="det-next">Ask a question to get a specific next step.</p>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Main Street Agent explains common processes and points you to the right institution or professional. It is not financial, legal or tax advice. Confirm fees, rates and rules with the institution or agency.</p>
+  <p class="contact">Built by Lamar Myers · <a href="mailto:ai.agent.lamar@gmail.com">ai.agent.lamar@gmail.com</a> · <a href="https://www.linkedin.com/in/lamar-myers-ai" rel="noopener noreferrer" target="_blank">linkedin.com/in/lamar-myers-ai</a></p>
+</footer>
+
+<script src="/assets/prefs.js"></script>
+<script src="/assets/engine.js"></script>
+</body>
+</html>

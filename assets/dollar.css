@@ -1,0 +1,109 @@
+/* Main Street Agent — Dollar tracker. Builds on guide.css (Caribbean editorial palette). */
+
+:root {
+  --gold-ink: #0b4a5c;
+  --hero-bg: #0a4d6b;
+  --hero-grad: linear-gradient(150deg, #062a43 0%, #0a4d6b 55%, #0d6874 100%);
+  --hero-text: #ffffff;
+  --hero-soft: #d9f4f1;
+  --up: #0b6a4f;
+  --down: #b33a26;
+  --spark: #0e7c86;
+  --skeleton: #e6f3f3;
+}
+:root[data-theme="dark"] {
+  --gold-ink: #c9f1ee;
+  --hero-bg: #0a3149;
+  --hero-grad: linear-gradient(150deg, #04182a 0%, #0a3149 55%, #0b4656 100%);
+  --hero-soft: #cdeeea;
+  --up: #7fe3c4;
+  --down: #ff9b86;
+  --spark: #5fd4d6;
+  --skeleton: #0d2e48;
+}
+
+.d-mast .kicker { display: inline-flex; align-items: center; gap: 0.5rem; }
+.live-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #0f9fa8; box-shadow: 0 0 0 0.25rem rgba(15, 159, 168, 0.18); }
+.d-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.625rem 1rem; margin-top: 0.25rem; }
+.d-refresh { border: 0; cursor: pointer; }
+.d-refresh[disabled] { opacity: 0.7; cursor: progress; }
+.d-link { font-weight: 600; font-size: 0.9375rem; }
+.d-status { margin: 0.875rem 0 0; color: var(--muted); font-size: 0.875rem; }
+.d-status.is-error { color: var(--warn); font-weight: 600; }
+
+/* Hero: the dollar in gold */
+.d-hero {
+  margin: 1.5rem 1rem 0; border-radius: 1.25rem; padding: 1.5rem 1.25rem;
+  background: var(--hero-bg); background: var(--hero-grad); color: var(--hero-text);
+  box-shadow: var(--shadow); display: grid; gap: 1.25rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.d-hero[hidden] { display: none; }
+.d-hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 70% at 100% 0%, rgba(95, 212, 214, 0.22), transparent 70%); }
+.d-hero > * { position: relative; min-width: 0; }
+.d-eyebrow { margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--hero-soft); }
+.d-hero-value { margin: 0; font-size: clamp(2rem, 1.3rem + 3vw, 3.5rem); color: #ffffff; }
+.d-hero-sub { margin: 0.5rem 0 0; font-size: 1.0625rem; color: #ffffff; }
+.d-hero-meta { margin: 0.5rem 0 0; font-size: 0.8125rem; color: var(--hero-soft); }
+.d-hero-meta a { color: #ffffff; }
+.d-hero-refs { display: grid; gap: 0.625rem; text-align: left; }
+.d-ref { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 0.875rem; padding: 0.75rem 0.875rem; }
+.d-ref-top { display: flex; justify-content: space-between; gap: 0.75rem; font-weight: 600; color: #ffffff; }
+.d-ref-top b { font-family: "Fraunces", "Iowan Old Style", Georgia, serif; font-size: 1.25rem; }
+.d-ref small { display: block; color: var(--hero-soft); font-size: 0.8125rem; margin-top: 0.125rem; }
+.d-bar { height: 0.5rem; border-radius: 999px; background: rgba(255, 255, 255, 0.16); margin-top: 0.5rem; overflow: hidden; }
+.d-bar span { display: block; height: 100%; border-radius: inherit; background: #ff9b86; background: linear-gradient(90deg, #ff9b86, #ffc2b5); }
+
+/* Groups and metric cards */
+.d-group { padding: 1.75rem 1rem 0; }
+.d-group > h2 { margin: 0 0 0.25rem; font-size: 1.5rem; text-align: center; }
+.d-group > p { margin: 0 auto 1rem; color: var(--muted); text-align: center; max-width: 52rem; }
+.d-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.metric {
+  position: relative; overflow: hidden; min-width: 0; text-align: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 1rem;
+  padding: 1.125rem 1.125rem 1rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 0.25rem;
+}
+.metric::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.25rem; background: linear-gradient(90deg, #0e5f76, #0f9fa8, #5fd4d6); }
+.metric h3 { margin: 0; font-family: "Inter", system-ui, sans-serif; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); line-height: 1.35; }
+.metric .val { margin: 0.25rem 0 0; font-family: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-weight: 700; font-size: 2rem; line-height: 1.1; color: var(--text); }
+.metric .sub { margin: 0; font-size: 0.9375rem; color: var(--text); font-weight: 500; }
+.metric .note { margin: 0.25rem 0 0; font-size: 0.875rem; color: var(--muted); }
+.metric .meta { margin: auto 0 0; padding-top: 0.5rem; font-size: 0.8125rem; color: var(--faint); display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25rem 0.75rem; }
+.metric .meta a { font-weight: 600; }
+.spark { display: block; width: 100%; height: 2.75rem; margin: 0.25rem 0 0; }
+.spark path.line { fill: none; stroke: var(--spark); stroke-width: 2; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+.spark path.area { fill: var(--spark); opacity: 0.12; }
+.metric.is-missing .val { color: var(--faint); font-size: 1.25rem; }
+.metric.skeleton { min-height: 10rem; background: var(--skeleton); box-shadow: none; }
+.metric.skeleton::before { opacity: 0.4; }
+
+.d-notes { display: grid; gap: 1rem; padding: 2rem 1rem 2.5rem; }
+.d-notes .panel p { margin: 0 0 0.5rem; }
+.d-notes .panel p:last-child { margin-bottom: 0; }
+
+.next-panel .cta { margin: 0.25rem 0.125rem; }
+
+@media (min-width: 600px) {
+  .d-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .d-group, .d-notes { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .d-hero { margin-left: 1.5rem; margin-right: 1.5rem; }
+  .d-hero-refs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .d-actions { justify-content: flex-start; }
+  .d-hero { margin-left: 2.5rem; margin-right: 2.5rem; padding: 2rem; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; text-align: left; }
+  .d-hero-refs { grid-template-columns: minmax(0, 1fr); }
+  .d-group, .d-notes { padding-left: 2.5rem; padding-right: 2.5rem; }
+  .d-group > h2, .d-group > p { text-align: left; margin-left: 0; }
+  .d-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1.25rem; }
+  .metric { text-align: left; }
+  .metric .meta { justify-content: flex-start; }
+  .d-notes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1440px) {
+  .d-hero { margin-left: 4rem; margin-right: 4rem; }
+  .d-group, .d-notes { padding-left: 4rem; padding-right: 4rem; }
+}
