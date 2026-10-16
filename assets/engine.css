@@ -303,7 +303,8 @@ button, textarea, input { font: inherit; color: inherit; }
   width: 100%; min-width: 0; resize: none; border: 0; outline: none; background: transparent;
   padding: 0.5rem 0.625rem; line-height: 1.5; max-height: 9rem; font-size: 1rem;
 }
-.composer textarea::placeholder { color: var(--faint); opacity: 1; }
+.composer textarea { overflow-y: hidden; } /* engine.js switches this to auto only once text passes max-height */
+.composer textarea::placeholder { color: var(--faint); opacity: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .composer-actions { display: flex; justify-content: flex-end; align-items: center; gap: 0.375rem; }
 .mic, .send { cursor: pointer; border: 0; height: 2.5rem; flex: none; }
 .mic {
