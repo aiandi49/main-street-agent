@@ -11,8 +11,8 @@ import { getDollarSnapshot, snapshotForPrompt } from './_lib/dollar-data.js';
 
 const MAX_MESSAGES = 24;
 const MAX_USER_CHARS = 2000; // what a visitor may type in one message
-const MAX_ASSISTANT_CHARS = 8000; // earlier replies sent back as context (max_tokens 1100 stays well under this)
-const MAX_TOKENS = 1100;
+const MAX_ASSISTANT_CHARS = 8000; // earlier replies sent back as context (max_tokens 1600 stays under this)
+const MAX_TOKENS = 1600; // room for a full answer plus its MATCH lines (replies are asked to stay near 250 words)
 const UPSTREAM_TIMEOUT_MS = 25000; // shorter than maxDuration (30s) in vercel.json
 const FDIC_TIMEOUT_MS = 5000;
 const DEFAULT_MODEL = 'claude-sonnet-5-5';
@@ -177,7 +177,7 @@ WHAT YOU DO
 - Case studies in the guide report results from recorded shows; present them as reported results, never as promises.
 
 HOW YOU TALK
-- Plain, warm, short. No markdown symbols such as ** or #. Use short paragraphs, and "- " at the start of a line for lists.
+- Plain, warm, short: keep the answer under about 250 words before the MATCH lines, so the reply is never cut off. No markdown symbols such as ** or #. Use short paragraphs, and "- " at the start of a line for lists.
 - If the request is unclear, ask exactly ONE short clarifying question (for example their state or ZIP code, personal or business, how far along the business is, or what they sell) and stop. Do not dump a list of questions.
 - When you have enough, give a specific recommendation of options with one concrete next step. Do not just say "go read about it".
 - If someone describes receiving money from a stranger or a new client and being asked to send some of it back or on to others, or a payer who doesn't match their client, warn them clearly that this matches money mule and overpayment scams and tell them to stop and contact the payment platform and their bank.
@@ -334,9 +334,14 @@ export default async function handler(req, res) {
       return;
     }
     const data = await upstream.json();
-    const reply = Array.isArray(data.content)
+    let reply = Array.isArray(data.content)
       ? data.content.filter((b) => b && b.type === 'text').map((b) => b.text).join('\n').trim()
       : '';
+    // If the reply hit the length limit, drop the half-written last line (often the start of a MATCH line).
+    if (data.stop_reason === 'max_tokens' && reply.includes('\n')) {
+      reply = reply.slice(0, reply.lastIndexOf('\n')).trim();
+      console.error('chat: upstream status 200 (reply hit max_tokens)');
+    }
     if (!reply) {
       console.error('chat: upstream status 200 (empty reply)');
       sendJson(res, 502, { error: 'The assistant is unavailable right now. Please try again in a minute.' });
