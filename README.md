@@ -36,6 +36,9 @@ Optional second rule for the Dollar tracker's data endpoint: Name "Rate limit do
 
 ### Free data keys for the Dollar tracker
 
+FRED's API terms require two things on the site, and both are already in the footer of the engine page and the Dollar tracker: the notice "This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis." and a link to the FRED® API Terms of Use stating that users agree to be bound by them. Keep both if you edit the footers. Don't use the FRED name or St. Louis Fed logo in your domain or branding, or suggest the site is endorsed by them.
+
+
 - **FRED_API_KEY** (recommended): create a free account at fred.stlouisfed.org, then go to **My Account → API Keys → Request API Key**. Without it, the tracker falls back to FRED's public CSV download.
 - **EIA_API_KEY** (optional): register at eia.gov/opendata. Without it, the electricity card is hidden.
 - The U.S. Treasury data and the gold price need no key.
