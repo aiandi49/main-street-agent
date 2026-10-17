@@ -267,6 +267,7 @@ button, textarea, input { font: inherit; color: inherit; }
   height: 2.25rem; border-radius: 999px;
 }
 .icon-btn { width: 2.25rem; justify-content: center; }
+.icon-btn:disabled { opacity: 0.45; cursor: not-allowed; }
 .pill-btn { padding: 0 0.75rem; font-size: 0.8125rem; font-weight: 600; }
 .icon-btn svg, .pill-btn svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 

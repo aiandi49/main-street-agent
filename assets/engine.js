@@ -17,6 +17,7 @@
   var countChip = el('msg-count');
   var resetBtn = el('btn-reset');
   var fullBtn = el('btn-full');
+  var downloadBtn = el('btn-download');
   var card = el('chat-card');
   var cell = el('chat-cell');
 
@@ -149,6 +150,7 @@
   function renderCount() {
     var n = state.messages.length;
     countChip.textContent = n === 0 ? 'No messages yet' : n === 1 ? '1 message' : n + ' messages';
+    if (downloadBtn) downloadBtn.disabled = !state.messages.some(function (m) { return m.role === 'assistant'; });
   }
 
   function guideIdFor(match) {
@@ -385,6 +387,34 @@
   }
   input.addEventListener('input', autoGrow);
   autoGrow();
+
+  // Download the conversation as a PDF, built in the browser (nothing is uploaded).
+  if (downloadBtn) downloadBtn.addEventListener('click', function () {
+    if (!window.MSAChatPdf || !state.messages.length) return;
+    var now = new Date();
+    var all = [];
+    var messages = state.messages.map(function (m) {
+      if (m.role !== 'assistant') return { role: 'user', text: m.content };
+      var parsed = parseReply(m.content);
+      parsed.matches.forEach(function (x) { if (!all.some(function (y) { return y.id === x.id; })) all.push(x); });
+      return { role: 'assistant', text: parsed.text };
+    });
+    var blob = window.MSAChatPdf.build({
+      title: 'Main Street Agent conversation',
+      subtitle: 'Saved ' + now.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' }) + ' \u00b7 main street money and business help',
+      messages: messages,
+      matches: all.sort(function (a, b) { return b.score - a.score; }).slice(0, 6),
+      disclaimer: 'Main Street Agent explains common processes and public data and points you to the right institution or professional. It is not financial, legal or tax advice. Figures change; confirm every number with its source before you act. Live dollar figures come from the U.S. Treasury, FRED (Federal Reserve Bank of St. Louis) and a spot gold feed. This product uses the FRED\u00ae API but is not endorsed or certified by the Federal Reserve Bank of St. Louis.'
+    });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'main-street-agent-chat-' + now.toISOString().slice(0, 10) + '.pdf';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  });
 
   resetBtn.addEventListener('click', function () {
     state = { messages: [], matches: [], selected: null };
