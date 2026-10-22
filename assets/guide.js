@@ -133,9 +133,10 @@
     var next = h('section', 'panel next-panel' + (isWarning(e) ? ' warn-panel' : ''));
     next.appendChild(h('h2', null, 'Next step'));
     next.appendChild(h('p', null, e.next_step));
-    if (e.link && typeof e.link.href === 'string' && /^\/[a-z0-9\/_-]*$/i.test(e.link.href)) {
+    if (e.link && typeof e.link.href === 'string' && /^\/[a-z0-9\/_-]*(\.pdf)?$/i.test(e.link.href)) {
       var local = h('a', 'cta', e.link.label || 'Open');
       local.href = e.link.href;
+      if (/\.pdf$/i.test(e.link.href)) local.setAttribute('download', '');
       next.appendChild(local);
       next.appendChild(document.createTextNode(' '));
     }
