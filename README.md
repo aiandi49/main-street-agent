@@ -8,6 +8,8 @@
 4. Click **Publish repository**, leave **Keep this code private** ticked, and click **Publish repository**.
 5. On GitHub, open the repo's **Settings → Advanced Security** (under "Security and quality"), enable **Secret Protection**, then click **Enable** next to **Push protection**. For private repositories this may depend on your GitHub plan; if the option isn't there, GitHub's pricing page will say what's needed.
 
+**Already published `main-street-agent` on GitHub?** Don't publish this folder as a second copy: GitHub won't accept two repositories with the same name in one account. Instead, copy the files from this folder into your existing `main-street-agent` folder, replacing the old ones, then commit and push from GitHub Desktop as usual.
+
 ## 2. Deploy on Vercel
 
 1. In Vercel, click **Add New… → Project**, import the private `main-street-agent` repo and click **Deploy**. No build settings are needed: it is static files plus one function in `api/`.
@@ -53,6 +55,7 @@ One guide and one chat engine covering everyday money and small business, built 
 - **`/guide`** is the guide (GUB): 112 topics in ten sections. Every topic links to its sources.
 - **Download chat as PDF:** the download button at the top of the chat saves the whole conversation, plus the matched topics, as a PDF. It is built in the visitor's browser by `assets/chat-pdf.js`, so nothing is uploaded.
 - **`/dollar`** is the Dollar tracker: where the dollar stands right now. It shows the dollar measured in gold (the headline metric), inflation and purchasing power, the money supply, Fed and Treasury rates, real yields, the national debt and its daily growth, interest payments, the average rate on the debt, debt compared with GDP, the dollar index, real GDP alongside GDI, and, with an EIA key, electricity generation. Every card shows its date and links to its official source. The page also offers The Dollar Brief as a PDF download (`assets/the-dollar-brief.pdf`).
+- **Briefs (PDF):** fact-checked summaries live in `assets/`: The Dollar Brief, The Tariff Threat Brief (`the-tariff-threat-brief.pdf`, linked from the guide topic on the bond market) and The 2008 Crisis Brief (`the-2008-crisis-brief.pdf`, linked from the 2008 crisis and fire-sale topics). A guide topic can offer a download by giving its `link.href` a path under `/assets/` ending in `.pdf`.
 
 | Section | Examples |
 | --- | --- |
