@@ -501,9 +501,39 @@
     });
   }
 
+  // ---------- guide handoff (/?q=) ----------
+  // A guide button opens /?q=<question>. Put the question in the chat box as plain text (never sent),
+  // remove ?q= from the address so a refresh doesn't add it again, and bring the box into view.
+  function takeHandoff() {
+    var params;
+    try { params = new URLSearchParams(location.search); } catch (err) { return; }
+    if (!params.has('q')) return;
+    var q = String(params.get('q') || '')
+      .replace(/[\u0000-\u001f\u007f]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 300);
+    params.delete('q');
+    var rest = params.toString();
+    try { history.replaceState(history.state, '', location.pathname + (rest ? '?' + rest : '') + location.hash); } catch (err) { /* ignore */ }
+    if (!q) return;
+    input.value = q;
+    autoGrow();
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var place = function () {
+      try { input.focus({ preventScroll: true }); } catch (err) { input.focus(); }
+      var end = input.value.length;
+      try { input.setSelectionRange(end, end); } catch (err) { /* ignore */ }
+      input.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' });
+    };
+    // Wait a frame so the board has its final layout before scrolling.
+    requestAnimationFrame(function () { requestAnimationFrame(place); });
+  }
+
   // ---------- start ----------
   load();
   renderLog();
   renderSide();
+  takeHandoff();
   loadGuide().then(renderSide);
 })();
