@@ -62,6 +62,14 @@
     return q.toLowerCase().split(/\s+/).filter(Boolean).every(function (w) { return hay.indexOf(w) !== -1; });
   }
 
+  // "Ask Main Street Agent about this": opens the engine with the question waiting in the chat box (never sent).
+  function askLink(e, cls) {
+    var link = h('a', cls, 'Ask Main Street Agent about this');
+    link.href = '/?q=' + encodeURIComponent(('Tell me more about: ' + e.title).slice(0, 300));
+    link.setAttribute('aria-label', 'Ask Main Street Agent about ' + e.title);
+    return link;
+  }
+
   function renderList() {
     var q = search.value.trim();
     var items = data.entries.filter(function (e) {
@@ -76,19 +84,27 @@
       return;
     }
     items.forEach(function (e) {
-      var a = h('a', 'entry-card' + (isWarning(e) ? ' is-warning' : ''));
+      var card = h('article', 'entry-card' + (isWarning(e) ? ' is-warning' : ''));
+      card.setAttribute('data-id', e.id);
+      card.appendChild(h('span', 'badge' + (isWarning(e) ? ' warn' : ''), e.kind + ' · ' + catLabel(e.category)));
+      var title = h('h2');
+      var a = h('a', 'card-link', e.title);
       a.href = '/guide?e=' + encodeURIComponent(e.id);
-      a.setAttribute('data-id', e.id);
-      a.appendChild(h('span', 'badge' + (isWarning(e) ? ' warn' : ''), e.kind + ' · ' + catLabel(e.category)));
-      a.appendChild(h('h2', null, e.title));
-      a.appendChild(h('p', null, e.summary));
-      a.appendChild(h('span', 'more', 'Read the guide →'));
       a.addEventListener('click', function (ev) {
         if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button !== 0) return;
         ev.preventDefault();
         go(e.id);
       });
-      grid.appendChild(a);
+      title.appendChild(a);
+      card.appendChild(title);
+      card.appendChild(h('p', null, e.summary));
+      var foot = h('div', 'card-foot');
+      var more = h('span', 'more', 'Read the guide →');
+      more.setAttribute('aria-hidden', 'true');
+      foot.appendChild(more);
+      foot.appendChild(askLink(e, 'ask-pill'));
+      card.appendChild(foot);
+      grid.appendChild(card);
     });
   }
 
@@ -140,9 +156,7 @@
       next.appendChild(local);
       next.appendChild(document.createTextNode(' '));
     }
-    var cta = h('a', 'cta', 'Ask the engine about this');
-    cta.href = '/';
-    next.appendChild(cta);
+    next.appendChild(askLink(e, 'cta'));
     aside.appendChild(next);
 
     var keys = Object.keys(e.details || {});
