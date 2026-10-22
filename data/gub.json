@@ -2,7 +2,7 @@
  "meta": {
   "name": "Main Street Agent",
   "tagline": "Plain-language help with banking, starting and growing a business, marketing, and staying safe with money.",
-  "updated": "2026-10-16",
+  "updated": "2026-10-21",
   "disclaimer": "Main Street Agent explains how common money and business processes usually work and points you to the right institution or professional. It is not financial, legal or tax advice, and it does not tell anyone how to invest. Fees, rates and rules change, so confirm every number with the institution or agency before you act."
  },
  "categories": [
@@ -2906,12 +2906,13 @@
    "category": "lessons",
    "kind": "Story",
    "title": "The 2008 crisis in plain words (The Big Short)",
-   "summary": "Risky home loans were bundled into securities, rated as safe, and bet on many times over with derivatives. When borrowers defaulted, losses spread through the whole system.",
+   "summary": "Risky home loans were bundled into bonds, rated as safe and bet on many times over. When defaults rose, AIG, Bear Stearns and Lehman Brothers fell and lending froze.",
    "body": [
-    "Lenders made many mortgages to borrowers who couldn't afford them, often with low teaser rates that later jumped. Brokers earned commissions on volume, so loan quality fell.",
-    "Those loans were pooled into mortgage-backed securities and sliced into layers (tranches), then re-pooled into CDOs. Rating agencies gave much of it top ratings, so investors treated risky debt as safe.",
-    "Credit default swaps worked like insurance on that debt. A small group of investors, including Steve Eisman's team, studied the loans themselves, saw rising defaults and bought protection that paid off when the market collapsed. Bets layered on bets meant a dollar of mortgage losses could become many dollars of losses elsewhere.",
-    "The lessons for ordinary people: read what you're signing, be wary of loans whose payment can jump, don't assume a rating or a big institution means safety, and remember that real people lose homes, jobs and retirement savings when a bubble breaks."
+    "Lenders sold most mortgages to Wall Street the day they were made, so they earned fees on volume and had less reason to check whether borrowers could pay. Many loans had low starting rates that jumped after a few years.",
+    "Banks pooled the loans into mortgage-backed securities and cut them into layers (tranches) by who absorbs losses first. Leftover risky layers were re-pooled into CDOs, and much of it was rated AAA. Credit default swaps let investors bet on those bonds failing, even without owning them, so losses multiplied far beyond the loans.",
+    "A few outsiders read the loan files and bet against them: Michael Burry, Steve Eisman, Greg Lippmann and the Cornwall Capital team, and John Paulson, whose firm made about $15 billion in 2007 alone. On the other side, AIG had insured about $440 billion of debt. Bear Stearns was sold to JPMorgan in March 2008 for $10 a share with a $29 billion Fed backstop, Lehman filed for bankruptcy on September 15, 2008, and AIG needed a rescue that grew to $182 billion.",
+    "Accountability was thin: Goldman Sachs paid a record $550 million SEC penalty over a CDO built with Paulson's help, and one banker, Credit Suisse's Kareem Serageldin, went to prison for 30 months. What caused the crisis is still argued: the official commission's majority blamed financial engineering and risk-taking, while one dissent blamed government housing policy.",
+    "The lessons for ordinary people: know when any loan payment can change, don't treat a rating or a famous name as a guarantee, avoid borrowing to invest, and keep bank deposits within insurance limits."
    ],
    "tags": [
     "2008",
@@ -2919,27 +2920,54 @@
     "big short",
     "subprime",
     "mortgage backed securities",
+    "mbs",
     "cdo",
     "credit default swap",
+    "michael burry",
     "steve eisman",
+    "greg lippmann",
+    "john paulson",
+    "aig",
+    "bear stearns",
+    "lehman brothers",
+    "goldman sachs",
+    "warren buffett",
     "housing bubble",
-    "recession"
+    "recession",
+    "dodd-frank"
    ],
    "details": {
-    "Root": "Unaffordable mortgages",
-    "Amplifier": "Securities, CDOs and swaps",
-    "Failure": "Ratings treated risky debt as safe",
+    "Root": "Unaffordable mortgages sold on immediately",
+    "Amplifier": "CDOs and credit default swaps",
+    "Biggest rescue": "AIG, $182 billion",
+    "Largest bankruptcy": "Lehman, $639 billion in assets",
     "Lesson": "Read the loan; payments that can jump are a risk"
    },
-   "next_step": "If you have an adjustable-rate loan, find the date and size of the next possible payment change.",
+   "next_step": "If you have an adjustable-rate loan, find the date and size of the next possible payment change. For the full story with every number checked, download The 2008 Crisis Brief.",
+   "link": {
+    "label": "Download The 2008 Crisis Brief (PDF)",
+    "href": "/assets/the-2008-crisis-brief.pdf"
+   },
    "sources": [
     {
      "label": "Federal Reserve History — The Great Recession",
      "url": "https://www.federalreservehistory.org/essays/great-recession-of-200709"
     },
     {
-     "label": "Steve Eisman reacts to The Big Short",
-     "url": "https://www.youtube.com/results?search_query=Steve+Eisman+reacts+Big+Short"
+     "label": "Federal Reserve — Bear Stearns, JPMorgan Chase and Maiden Lane",
+     "url": "https://www.federalreserve.gov/regreform/reform-bearstearns.htm"
+    },
+    {
+     "label": "SEC — Goldman Sachs to pay record $550 million (2010)",
+     "url": "https://sec.gov/news/press/2010/2010-123.htm"
+    },
+    {
+     "label": "U.S. Attorney, SDNY — Serageldin sentenced to 30 months",
+     "url": "https://www.justice.gov/usao-sdny/pr/former-credit-suisse-managing-director-sentenced-manhattan-federal-court-30-months"
+    },
+    {
+     "label": "Ginnie Mae — first mortgage-backed security (1970)",
+     "url": "https://www.ginniemae.gov/about_us/who_we_are/Pages/our_history.aspx"
     }
    ]
   },
@@ -2977,6 +3005,58 @@
     {
      "label": "Investor.gov — investing basics, including margin",
      "url": "https://www.investor.gov/"
+    }
+   ]
+  },
+  {
+   "id": "lessons-fire-sale",
+   "category": "lessons",
+   "kind": "Story",
+   "title": "Fire sales and frozen markets (Margin Call)",
+   "summary": "When one firm dumps assets everyone thought were safe, lenders start doubting everyone. That loss of trust, more than the losses themselves, is what froze markets in 2008.",
+   "body": [
+    "In the 2011 film Margin Call, a fictional bank learns overnight that its mortgage bonds are close to worthless and decides to sell them all the next day before anyone else catches on. Asked whether regulators can stop it, the risk chief says they can slow the firm down but not stop it.",
+    "That holds up in real life. Selling assets you own to willing buyers is legal; hiding facts about them is not. Mortgage bonds traded privately between firms, so regulators learned of unusual selling only when someone told them, and big investment banks weren't under day-to-day Fed supervision until Goldman Sachs and Morgan Stanley became bank holding companies in September 2008.",
+    "The damage spreads in steps: a big discounted sale makes everyone ask who else holds the same assets, lenders accept less of that collateral or none, firms sell anything to raise cash, and lending freezes. Bear Stearns lived this in March 2008 when lenders refused to renew its overnight loans.",
+    "For ordinary people, the takeaway is about liquidity: keep enough cash or easy-to-reach savings for bills, so a bad week in the markets never forces you to sell at the worst moment."
+   ],
+   "tags": [
+    "fire sale",
+    "margin call",
+    "margin call movie",
+    "liquidity",
+    "credit freeze",
+    "trust",
+    "repo",
+    "bear stearns",
+    "2008",
+    "federal reserve",
+    "sec",
+    "contagion"
+   ],
+   "details": {
+    "Film": "Margin Call (2011), fiction",
+    "Can regulators stop it?": "Slow it down, not stop it",
+    "How it spreads": "Doubt, collateral cuts, forced selling",
+    "Real example": "Bear Stearns, March 2008"
+   },
+   "next_step": "Work out how many weeks of bills your easy-to-reach savings cover, and set a target if it's less than a month.",
+   "link": {
+    "label": "Download The 2008 Crisis Brief (PDF)",
+    "href": "/assets/the-2008-crisis-brief.pdf"
+   },
+   "sources": [
+    {
+     "label": "Federal Reserve History — Support for specific institutions",
+     "url": "https://federalreservehistory.org/essay/support-for-specific-institutions"
+    },
+    {
+     "label": "Yale Journal of Financial Crises — The Bear Stearns bridge loan",
+     "url": "https://elischolar.library.yale.edu/journal-of-financial-crises/vol7/iss1/22/"
+    },
+    {
+     "label": "Goldman Sachs — Berkshire Hathaway investment, Sept 23, 2008 (bank holding company status)",
+     "url": "https://www.goldmansachs.com/pressroom/press-releases/2008/berkshire-hathaway-invest"
     }
    ]
   },
@@ -3124,6 +3204,111 @@
     {
      "label": "FDIC — What deposit insurance does not cover",
      "url": "https://www.fdic.gov/resources/deposit-insurance/understanding-deposit-insurance"
+    }
+   ]
+  },
+  {
+   "id": "lessons-market-panic",
+   "category": "lessons",
+   "kind": "Warning",
+   "title": "When the market drops: panic, \"buy the dip\" and sign-up bonuses",
+   "summary": "Sharp drops bring a wave of livestreams telling you not to panic and to buy now, often next to brokerage sign-up bonuses and paid memberships. Check your own plan first.",
+   "body": [
+    "On Friday, October 16, 2026, the S&P 500 fell about 1.1% and the Nasdaq about 2.1%, capping a week in which the Nasdaq lost about 4.5% and chip stocks fell more than 11%. Inflation had come in at 3.7%, oil was near $100 and investors were worried about how AI spending is being financed.",
+    "Days like that bring finance livestreams with titles about panicking. Some offer sensible reminders, such as that the Fed's two goals are maximum employment and stable prices, and that a few giant tech companies drive much of the S&P 500's return. Many also come wrapped in brokerage promotions (free shares or a high cash rate for opening an account), paid communities and mentoring sites. The creator is paid when you sign up, whatever happens to your money.",
+    "Neither \"buy the dip\" nor \"get out now\" is a plan for you. A plan answers simpler questions first: is your emergency fund in place, is any of your investing done with borrowed money, and when will you actually need this money?",
+    "Main Street Agent doesn't say what to buy or sell. For personal advice, use a fee-only fiduciary you can check on Investor.gov or FINRA BrokerCheck."
+   ],
+   "steps": [
+    "Before acting on a drop, write down when you'll need the money and how much you could lose without missing a bill.",
+    "Read the fine print of any sign-up bonus: deposit minimums, how long you must stay, and what fees apply.",
+    "Look up anyone giving investment advice on Investor.gov before paying for a membership or course."
+   ],
+   "tags": [
+    "stock market",
+    "market drop",
+    "panic",
+    "buy the dip",
+    "volatility",
+    "influencer",
+    "youtube",
+    "livestream",
+    "sign-up bonus",
+    "brokerage",
+    "october 2026",
+    "nasdaq",
+    "sell off",
+    "crash"
+   ],
+   "details": {
+    "Oct 16, 2026": "S&P 500 about -1.1%, Nasdaq about -2.1%",
+    "That week": "Nasdaq about -4.5%, chip stocks -11.4%",
+    "Red flag": "Advice bundled with sign-up bonuses",
+    "Check": "Investor.gov before paying anyone"
+   },
+   "next_step": "Write a one-paragraph plan for a 20% market drop (what you'd do and what you wouldn't) before the next one happens.",
+   "sources": [
+    {
+     "label": "Investrade — Market review, October 16, 2026",
+     "url": "https://investrade.com/market-review-october-16-2026/"
+    },
+    {
+     "label": "Nasdaq — Chartstopper, October 16, 2026",
+     "url": "https://www.nasdaq.com/economic-institute/chartstopper-101626"
+    },
+    {
+     "label": "Investor.gov — Check out your investment professional",
+     "url": "https://www.investor.gov/"
+    }
+   ]
+  },
+  {
+   "id": "lessons-say-what-i-want",
+   "category": "lessons",
+   "kind": "Story",
+   "title": "\"If the consequence is losing money, so be it\": when a leader's posts cost the business",
+   "summary": "In 2023 Elon Musk said he would post what he wanted even if it cost his companies money. X's advertising revenue later fell by more than half. Owners face the same trade-off on a smaller scale.",
+   "body": [
+    "In a CNBC interview that aired May 16, 2023, David Faber asked Musk whether his tweets hurt Tesla and whether advertisers would push incoming Twitter CEO Linda Yaccarino to rein him in. Musk paused, recalled the Princess Bride scene where Inigo Montoya tells the man who killed his father \"offer me money, offer me power, I don't care\", and said he would say what he wants, and if the consequence is losing money, so be it.",
+    "The consequence was real. X's U.S. ad revenue fell about 60% by late 2023 by Musk's own account, and Bloomberg reported 2023 ad sales of roughly $2.5 billion, about half of earlier years. In November 2023 Musk told departing advertisers to go away in profane terms while warning the boycott could kill the company. X's lawsuit accusing advertisers of an illegal boycott was dismissed in March 2026, and reported ad revenue for the second quarter of 2026 was about $367 million, against about $1.08 billion for Twitter in the same quarter of 2022.",
+    "Whatever you think of his views, the business lesson is general. Customers, advertisers and lenders can leave over what a leader says, and that risk lands on employees and shareholders too. Investors call it key-person risk.",
+    "For a small business owner, your personal posts are part of your brand. You can choose to speak anyway, as Musk did, but make it a conscious decision with the cost in view, not an accident."
+   ],
+   "tags": [
+    "elon musk",
+    "twitter",
+    "x",
+    "tesla",
+    "advertisers",
+    "boycott",
+    "brand risk",
+    "key person risk",
+    "free speech",
+    "social media",
+    "princess bride",
+    "linda yaccarino",
+    "reputation",
+    "small business"
+   ],
+   "details": {
+    "Interview": "CNBC with David Faber, aired May 16, 2023",
+    "Quote": "\"If the consequence of that is losing money, so be it\"",
+    "What followed": "X ad revenue about halved in 2023",
+    "Lesson": "Leaders' posts are a business risk"
+   },
+   "next_step": "Before posting about a divisive topic from an account tied to your business, decide whether you'd accept losing your three biggest customers over it.",
+   "sources": [
+    {
+     "label": "Fortune — Has Elon Musk become a risk to his own investors? (May 17, 2023)",
+     "url": "https://fortune.com/2023/05/17/has-elon-musk-become-a-risk-to-his-own-investors-ill-say-what-i-want-and-if-the-consequence-of-that-is-losing-money-so-be-it"
+    },
+    {
+     "label": "Fortune (Bloomberg) — X's 2023 ad revenue about $2.5 billion",
+     "url": "https://fortune.com/2023/12/12/elon-musks-x-is-seeing-ad-revenue-plunge-by-half-from-prior-years-and-is-expected-to-bring-in-just-2-5b-this-year"
+    },
+    {
+     "label": "ProPakistani — X ad revenue in SpaceX's Q2 2026 report",
+     "url": "https://propakistani.pk/2026/08/05/xs-ad-revenue-has-dropped-over-700-million-ever-since-musks-takeover/"
     }
    ]
   },
@@ -4195,7 +4380,11 @@
      "label": "TreasuryDirect",
      "url": "https://www.treasurydirect.gov/"
     }
-   ]
+   ],
+   "link": {
+    "label": "Download The Tariff Threat Brief (PDF)",
+    "href": "/assets/the-tariff-threat-brief.pdf"
+   }
   },
   {
    "id": "dollar-national-debt",
