@@ -11,9 +11,14 @@ import { getDollarSnapshot, snapshotForPrompt } from './_lib/dollar-data.js';
 
 const MAX_MESSAGES = 24;
 const MAX_USER_CHARS = 2000; // what a visitor may type in one message
-const MAX_ASSISTANT_CHARS = 8000; // earlier replies sent back as context (max_tokens 1600 stays under this)
-const MAX_TOKENS = 1600; // room for a full answer plus its MATCH lines (replies are asked to stay near 250 words)
-const UPSTREAM_TIMEOUT_MS = 25000; // shorter than maxDuration (30s) in vercel.json
+const MAX_ASSISTANT_CHARS = 8000; // earlier replies sent back as context (replies are asked to stay near 250 words)
+// Hidden thinking and the visible reply share max_tokens on current Claude models, so this stays at 16000:
+// a low cap cuts answers off mid-sentence and drops the MATCH lines.
+const MAX_TOKENS = 16000;
+const EFFORT = 'medium'; // output_config.effort: balanced speed, cost and quality for chat
+const UPSTREAM_BUDGET_MS = 110000; // total time for the reply and any continuation; shorter than maxDuration (120s) in vercel.json
+const CONTINUE_MIN_MS = 20000; // only ask for a continuation if at least this much of the budget is left
+const CONTINUE_PROMPT = 'Your last reply was cut off by the length limit. Continue exactly where it stopped, without repeating anything already written, and finish with the MATCH lines if the reply needs them.';
 const FDIC_TIMEOUT_MS = 5000;
 const DEFAULT_MODEL = 'claude-sonnet-5-5';
 const LIVE_DATA_WAIT_MS = 8000; // how long the chat waits for the dollar snapshot before answering without it
@@ -310,9 +315,11 @@ export default async function handler(req, res) {
     wantsLive ? liveSnapshotText() : Promise.resolve(null),
   ]);
 
+  const system = systemPrompt(gub, picked, zip, branches, live);
+  const deadline = Date.now() + UPSTREAM_BUDGET_MS;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
-  try {
+  const timer = setTimeout(() => controller.abort(), UPSTREAM_BUDGET_MS);
+  const ask = async (msgs) => {
     const upstream = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       signal: controller.signal,
@@ -324,23 +331,51 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: process.env.ANTHROPIC_MODEL || DEFAULT_MODEL,
         max_tokens: MAX_TOKENS,
-        system: systemPrompt(gub, picked, zip, branches, live),
-        messages,
+        output_config: { effort: EFFORT },
+        system,
+        messages: msgs,
       }),
     });
     if (!upstream.ok) {
       console.error(`chat: upstream status ${upstream.status}`);
+      return null;
+    }
+    const data = await upstream.json();
+    const text = Array.isArray(data.content)
+      ? data.content.filter((b) => b && b.type === 'text').map((b) => b.text).join('\n').trim()
+      : '';
+    return { text, stop: data.stop_reason };
+  };
+  try {
+    const first = await ask(messages);
+    if (!first) {
       sendJson(res, 502, { error: 'The assistant is unavailable right now. Please try again in a minute.' });
       return;
     }
-    const data = await upstream.json();
-    let reply = Array.isArray(data.content)
-      ? data.content.filter((b) => b && b.type === 'text').map((b) => b.text).join('\n').trim()
-      : '';
-    // If the reply hit the length limit, drop the half-written last line (often the start of a MATCH line).
-    if (data.stop_reason === 'max_tokens' && reply.includes('\n')) {
+    let reply = first.text;
+    let stop = first.stop;
+    // If the reply hit the length limit, ask once for the rest so the answer and MATCH lines are complete.
+    if (stop === 'max_tokens' && reply && deadline - Date.now() > CONTINUE_MIN_MS) {
+      console.error('chat: upstream status 200 (reply hit max_tokens, continuing)');
+      try {
+        const more = await ask([
+          ...messages,
+          { role: 'assistant', content: reply },
+          { role: 'user', content: CONTINUE_PROMPT },
+        ]);
+        if (more && more.text) {
+          const joiner = /^[,.;:!?)\]'"\u2019\u201d]/.test(more.text) ? '' : (/\n$/.test(reply) ? '' : ' ');
+          reply = reply + joiner + more.text;
+          stop = more.stop;
+        }
+      } catch {
+        console.error('chat: continuation failed');
+      }
+    }
+    // Still cut off: drop the half-written last line (often the start of a MATCH line).
+    if (stop === 'max_tokens' && reply.includes('\n')) {
       reply = reply.slice(0, reply.lastIndexOf('\n')).trim();
-      console.error('chat: upstream status 200 (reply hit max_tokens)');
+      console.error('chat: upstream status 200 (reply still at max_tokens)');
     }
     if (!reply) {
       console.error('chat: upstream status 200 (empty reply)');
