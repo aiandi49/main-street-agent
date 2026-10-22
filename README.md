@@ -103,7 +103,7 @@ vercel.json                      → security headers, CSP, function settings
 - `/api/dollar` accepts only `POST` with a JSON body, checks the Origin, has its own rate limit (30 per 10 minutes per visitor), times out after 20 seconds and returns only public figures. It never takes actions or calls Anthropic.
 - `/api/chat` accepts only `POST` with a JSON body up to 32 KB, at most 24 messages, typed messages up to 2,000 characters (earlier replies sent back as context are trimmed to 8,000), and only `user`/`assistant` roles. The page drops the oldest turns if a long conversation would pass 32 KB. The server alone sets the model, `max_tokens` and the system prompt.
 - Requests whose `Origin` is not the site's own domain get a 403. This stops other websites from using the chat from a visitor's browser. It does **not** stop scripts, which is why the rate limit and the spend cap matter.
-- Upstream calls time out after 25 seconds (the function's limit is 30). Errors return a plain message; logs contain status codes only.
+- Each chat request sends `max_tokens` 16000 with `output_config.effort` set to `medium`. If a reply still reaches the limit, `/api/chat` asks once for the rest. All upstream calls share a 110-second budget (the function's limit is 120). Errors return a plain message; logs contain status codes only.
 - `vercel.json` sets `nosniff`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy` (microphone for this site only, for voice input), HSTS and a Content-Security-Policy that allows only this site plus Google Fonts. The small inline theme script is allowed by its SHA-256 hash.
 - There are no dependencies, so there is nothing to `npm install` or audit.
 
